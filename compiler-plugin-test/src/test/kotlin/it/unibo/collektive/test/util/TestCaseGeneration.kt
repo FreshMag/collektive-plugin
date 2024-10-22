@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import org.intellij.lang.annotations.Language
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -21,15 +22,20 @@ object TestCaseGeneration {
     data class Parameters(val aggregate: List<String>, val iterative: List<Iterative>)
     data class Iterative(val name: String, val code: String)
 
+    @Language("kotlin")
     val preamble = """
-      import it.unibo.collektive.aggregate.api.Aggregate
-      import it.unibo.collektive.Collektive.Companion.aggregate
-    
+        /**
+         * This file has been auto-generated. See 
+         * [https://github.com/FreshMag/collektive-plugin/blob/test/generated-cases/compiler-plugin-test/src/test/resources/yaml/TestingCases.yaml](this link).  
+         */
+        import it.unibo.collektive.aggregate.api.Aggregate
+        import it.unibo.collektive.Collektive.Companion.aggregate
+        
     """.trimIndent()
 
     fun generate(
         yamlFilePath: String = "compiler-plugin-test/src/test/resources/yaml/TestingCases.yaml",
-        outputResourceFolder: String = "compiler-plugin-test/src/test/resources/kotlin/g/",
+        outputResourceFolder: String = "compiler-plugin-test/src/test/resources/kotlin/generated/",
         outputSpecFolder: String = "compiler-plugin-test/src/test/kotlin/it/unibo/collektive/test/",
         generateKotestSpec: Boolean = true,
     ) {
@@ -47,7 +53,7 @@ object TestCaseGeneration {
 
         val allTests = StringBuilder()
 
-        data.cases.forEach { case ->
+        data.cases.filterNot { it.id.contains("delegate", ignoreCase = true) }.forEach { case ->
             data.parameters.iterative.dropLast(1).forEach { iterative ->
                 data.parameters.aggregate.dropLast(2).forEach { aggregate ->
                     val values = mapOf("iterative" to iterative.code, "aggregate" to aggregate)
