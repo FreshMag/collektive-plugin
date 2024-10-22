@@ -34,6 +34,8 @@ kotlinJvm {
                 implementation(libs.javap)
                 implementation(libs.kctfork)
                 implementation(libs.kotlinpoet)
+                implementation(libs.jackson.kotlin)
+                implementation(libs.jackson.yaml)
             }
         }
     }
