@@ -104,6 +104,8 @@ cases:
     inside a loop with no manual alignment operation'
   - id: OutsideAggregate
     code: |-
+      import it.unibo.collektive.Collektive.Companion.aggregate
+      
       fun entry() {
         %(iterative) {
           aggregate(0) {
