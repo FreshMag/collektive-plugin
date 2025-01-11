@@ -15,8 +15,9 @@ import kotlin.random.Random
  * An environment with a set of [nodes] mapped into [positions],
  * which are considered connected if the [areConnected] function returns true for them.
  */
-open class Environment<R>(val areConnected: (Environment<R>, Node<R>, Node<R>) -> Boolean = { _, _, _ -> true }) {
-
+open class Environment<R>(
+    val areConnected: (Environment<R>, Node<R>, Node<R>) -> Boolean = { _, _, _ -> true },
+) {
     private val positions = mutableMapOf<Node<R>, Position>()
     private val randomGenerator = Random(0)
     private var nextId = 0
@@ -34,7 +35,11 @@ open class Environment<R>(val areConnected: (Environment<R>, Node<R>, Node<R>) -
     /**
      * Adds a node to the environment at the given [position] with the given [initial] value and [program].
      */
-    fun addNode(position: Position, initial: R, program: Aggregate<Int>.(Environment<R>) -> R) {
+    fun addNode(
+        position: Position,
+        initial: R,
+        program: Aggregate<Int>.(Environment<R>) -> R,
+    ) {
         positions[Node(this, nextId++, initial, program)] = position
     }
 
@@ -51,8 +56,7 @@ open class Environment<R>(val areConnected: (Environment<R>, Node<R>, Node<R>) -
     /**
      * Retrieves the neighboring nodes of the provided [node].
      */
-    fun neighborsOf(node: Node<R>): List<Node<R>> =
-        positions.keys.filter { it != node && areConnected(this, node, it) }
+    fun neighborsOf(node: Node<R>): List<Node<R>> = positions.keys.filter { it != node && areConnected(this, node, it) }
 
     override fun toString() = "Environment(nodes=$nodes)"
 

@@ -3,7 +3,6 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-
 plugins {
     java
 }
@@ -30,9 +29,11 @@ kotlinJvm {
         val test by getting {
             dependencies {
                 implementation(project(":dsl"))
+                implementation(project(":compiler-embeddable"))
                 implementation(rootProject.libs.kotest.runner.junit5.jvm)
                 implementation(libs.javap)
-                implementation(libs.kctfork)
+                implementation(libs.kotlinpoet)
+                implementation(libs.subjekt)
             }
         }
     }
@@ -43,10 +44,11 @@ kotlinJvm {
         useJUnitPlatform()
         testLogging {
             showExceptions = true
-            events = setOf(
-                TestLogEvent.FAILED,
-                TestLogEvent.PASSED,
-            )
+            events =
+                setOf(
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                )
             exceptionFormat = TestExceptionFormat.FULL
         }
     }

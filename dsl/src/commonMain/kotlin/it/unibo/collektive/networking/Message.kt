@@ -10,7 +10,10 @@ sealed interface Message
 /**
  * [messages] received by a node from [senderId].
  */
-data class InboundMessage<ID : Any>(val senderId: ID, val messages: Map<Path, *>) : Message
+data class InboundMessage<ID : Any>(
+    val senderId: ID,
+    val messages: Map<Path, *>,
+) : Message
 
 /**
  * An [OutboundMessage] are messages that a device [senderId] sends to all other neighbours.
@@ -19,7 +22,6 @@ class OutboundMessage<ID : Any>(
     expectedSize: Int,
     val senderId: ID,
 ) : Message {
-
     /**
      * The default messages to be sent to all neighbours.
      */
@@ -39,18 +41,22 @@ class OutboundMessage<ID : Any>(
     /**
      * Returns the messages for device [id].
      */
-    fun messagesFor(id: ID): Map<Path, *> = LinkedHashMap<Path, Any?>(
-        defaults.size + overrides.size,
-        1.0f,
-    ).also { result ->
-        result.putAll(defaults)
-        overrides[id]?.let { result.putAll(it) }
-    }
+    fun messagesFor(id: ID): Map<Path, *> =
+        LinkedHashMap<Path, Any?>(
+            defaults.size + overrides.size,
+            1.0f,
+        ).also { result ->
+            result.putAll(defaults)
+            overrides[id]?.let { result.putAll(it) }
+        }
 
     /**
      * Add a [message] to the [OutboundMessage].
      */
-    fun addMessage(path: Path, message: SingleOutboundMessage<ID, *>) {
+    fun addMessage(
+        path: Path,
+        message: SingleOutboundMessage<ID, *>,
+    ) {
         check(!defaults.containsKey(path)) {
             """
             Aggregate alignment clash originated at the same path: $path. 
@@ -73,4 +79,7 @@ class OutboundMessage<ID : Any>(
  * Has a [default] value that is sent regardless the awareness the device's neighbours, [overrides] specifies the
  * payload depending on the neighbours' values.
  */
-data class SingleOutboundMessage<ID : Any, Payload>(val default: Payload, val overrides: Map<ID, Payload> = emptyMap())
+data class SingleOutboundMessage<ID : Any, Payload>(
+    val default: Payload,
+    val overrides: Map<ID, Payload> = emptyMap(),
+)

@@ -1,11 +1,10 @@
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
-import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
-import org.gradle.api.publish.tasks.GenerateModuleMetadata
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.gradle.internal.os.OperatingSystem
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.assign
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
 import org.gradle.plugin.use.PluginDependency
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -14,12 +13,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 val Provider<PluginDependency>.id: String get() = get().pluginId
-
-val os: OperatingSystem = OperatingSystem.current()
 
 inline fun <reified ProjectType : KotlinProjectExtension> Project.kotlin(configuration: ProjectType.() -> Unit) =
     extensions.getByType<ProjectType>().configuration()
@@ -28,10 +23,16 @@ fun Project.kotlinJvm(configuration: KotlinJvmProjectExtension.() -> Unit) = kot
 
 fun Project.kotlinMultiplatform(configuration: KotlinMultiplatformExtension.() -> Unit) = kotlin(configuration)
 
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
 fun Project.configureKotlinMultiplatform() {
     with(extensions.getByType<KotlinMultiplatformExtension>()) {
-        val kotlin = this
+        compilerOptions {
+            allWarningsAsErrors = true
+        }
         jvm {
+            compilerOptions {
+                jvmTarget = JvmTarget.JVM_1_8
+            }
             testRuns.getByName("test").executionTask.configure {
                 useJUnitPlatform()
                 filter {
@@ -76,34 +77,12 @@ fun Project.configureKotlinMultiplatform() {
         tvosX64(nativeSetup)
         tvosSimulatorArm64(nativeSetup)
 
-        tasks.withType<KotlinCompile>().configureEach {
-            compilerOptions {
-                allWarningsAsErrors = true
-                jvmTarget = JvmTarget.JVM_1_8
+        // Workaround for https://github.com/kotest/kotest/pull/4598 (merged but not released)
+        tasks.withType<KotlinCompilationTask<*>>()
+            .configureEach {
+                compilerOptions {
+                    allWarningsAsErrors = !name.contains("test", ignoreCase = true)
+                }
             }
-        }
-
-        // Disable cross compilation
-        val excludeTargets = when {
-            os.isLinux -> kotlin.targets.filterNot { "linux" in it.name }
-            os.isWindows -> kotlin.targets.filterNot { "mingw" in it.name }
-            os.isMacOsX -> kotlin.targets.filter { "linux" in it.name || "mingw" in it.name }
-            else -> emptyList()
-        }.mapNotNull { it as? KotlinNativeTarget }
-        configure(excludeTargets) {
-            compilations.configureEach {
-                cinterops.configureEach { tasks[interopProcessingTaskName].enabled = false }
-                compileTaskProvider.get().enabled = false
-                tasks[processResourcesTaskName].enabled = false
-            }
-            binaries.configureEach { linkTask.enabled = false }
-
-            mavenPublication {
-                tasks.withType<AbstractPublishToMaven>()
-                    .configureEach { onlyIf { publication != this@mavenPublication } }
-                tasks.withType<GenerateModuleMetadata>()
-                    .configureEach { onlyIf { publication.get() != this@mavenPublication } }
-            }
-        }
     }
 }

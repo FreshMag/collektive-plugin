@@ -1,94 +1,70 @@
 package it.unibo.collektive.test.util
 
-import com.tschuchort.compiletesting.JvmCompilationResult
-import com.tschuchort.compiletesting.KotlinCompilation
-import com.tschuchort.compiletesting.SourceFile
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldContain
-import io.kotest.matchers.string.shouldNotContain
-import it.unibo.collektive.AlignmentComponentRegistrar
+import io.kotest.data.headers
+import io.kotest.data.row
+import io.kotest.data.table
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContain
+import it.unibo.collektive.compiler.CollektiveK2JVMCompiler
+import it.unibo.collektive.compiler.logging.CollectingMessageCollector
+import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
-import java.util.HashMap
+import java.io.File
+import java.io.FileNotFoundException
+import kotlin.io.path.createTempDirectory
 
 @OptIn(ExperimentalCompilerApi::class)
 object CompileUtils {
-    fun compile(fileName: String, program: String): JvmCompilationResult {
-        val sourceFile = SourceFile.kotlin(fileName, program)
-
-        return KotlinCompilation().apply {
-            sources = listOf(sourceFile)
-            compilerPluginRegistrars = listOf(AlignmentComponentRegistrar())
-            inheritClassPath = true
-        }.compile()
-    }
-
     data class KotlinTestingProgram(
         val fileName: String,
-        private val template: String,
         val program: String,
-        private val properties: Map<String, String>,
     ) {
+        infix fun shouldCompileWith(compilationCheck: (CollectingMessageCollector) -> Unit) {
+            val collector = CollectingMessageCollector()
+            val program =
+                createTempDirectory("collektive-test")
+                    .toFile()
+                    .also { require(it.exists() && it.isDirectory) }
+                    .resolve(fileName)
+                    .also { it.writeText(program) }
+            CollektiveK2JVMCompiler.compile(listOf(program), collector)
+            compilationCheck(collector)
+        }
+    }
 
-        fun formatCode(vararg args: Any?): KotlinTestingProgram =
-            KotlinTestingProgram(fileName, template, program.format(*args), properties)
+    val noWarning: (CollectingMessageCollector) -> Unit = { it[CompilerMessageSeverity.WARNING].shouldBeEmpty() }
 
-        fun put(key: String, value: String): KotlinTestingProgram {
-            val updateProperties = properties + (key to value)
-            return KotlinTestingProgram(
-                fileName,
-                template,
-                StringSubstitutor.replace(template, updateProperties),
-                updateProperties,
+    fun warning(warningMessage: String): (CollectingMessageCollector) -> Unit =
+        { collector ->
+            collector[CompilerMessageSeverity.WARNING].map { it.message } shouldContain warningMessage
+        }
+
+    fun String.asTestingProgram(fileName: String): KotlinTestingProgram = KotlinTestingProgram(fileName, this)
+
+    fun pascalCase(vararg words: String): String = words.joinToString("") { it.replaceFirstChar(Char::titlecase) }
+
+    /**
+     * Gets the text from a map of files, given its [name], and converts it to a
+     * [KotlinTestingProgram].
+     */
+    fun Map<String, File>.getTestingProgram(name: String): KotlinTestingProgram =
+        this[name]
+            ?.readText()
+            ?.asTestingProgram("$name.kt")
+            ?: throw FileNotFoundException(
+                "Program not found: $name",
             )
-        }
 
-        fun import(javaClass: Class<*>): KotlinTestingProgram =
-            put(
-                "imports",
-                properties["imports"] + "\nimport " + javaClass.name,
-            )
+    val testedAggregateFunctions =
+        table(
+            headers("functionCall"),
+            row("neighboring(0)"),
+        )
 
-        infix fun shouldCompileWith(compilationCheck: (JvmCompilationResult) -> Unit) {
-            val result = compile(fileName, program)
-            result.exitCode shouldBe KotlinCompilation.ExitCode.OK
-            compilationCheck(result)
-        }
-    }
-
-    val noWarning: (JvmCompilationResult) -> Unit = { it.messages shouldNotContain "Warning" }
-
-    fun warning(warningMessage: String): (JvmCompilationResult) -> Unit = { it.messages shouldContain warningMessage }
-
-    fun testingProgramFromResource(fileName: String): KotlinTestingProgram {
-        val content: String = checkNotNull(ClassLoader.getSystemClassLoader().getResource(fileName)).readText()
-        return KotlinTestingProgram(fileName, content, content, HashMap())
-    }
-
-    enum class ProgramTemplates(val fileName: String, val defaultProperties: Map<String, String>) {
-        SINGLE_AGGREGATE_LINE(
-            "SingleAggregateLine.template.kt",
-            mapOf(),
-        ),
-        SINGLE_AGGREGATE_IN_A_LOOP(
-            "SingleAggregateInLoop.template.kt",
-            mapOf(
-                "aggregate" to "exampleAggregate()",
-            ),
-        ),
-    }
-
-    fun testingProgramFromTemplate(template: ProgramTemplates): KotlinTestingProgram =
-        testingProgramFromResource(template.fileName).copy(properties = template.defaultProperties).put("", "")
-
-    object StringSubstitutor {
-        fun replace(
-            template: String,
-            properties: Map<String, String>,
-        ): String {
-            return template.replace(Regex("%\\(([^)]+)\\)")) { matchResult ->
-                val key = matchResult.groupValues[1]
-                properties[key].orEmpty()
-            }
-        }
-    }
+    val formsOfIteration =
+        table(
+            headers("iteration", "iterationDescription"),
+            row("For", "a for loop"),
+            row("ForEach", "a 'forEach' call"),
+        )
 }

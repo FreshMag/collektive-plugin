@@ -4,14 +4,10 @@ configureKotlinMultiplatform()
 
 kotlinMultiplatform {
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(rootProject.libs.arrow)
-            }
-        }
         val commonTest by getting {
             dependencies {
                 implementation(project(":stdlib"))
+                implementation(project(":test-tooling"))
                 implementation(rootProject.libs.bundles.kotlin.testing.common)
             }
         }
@@ -28,12 +24,4 @@ kotlinMultiplatform {
 // It is used to configure the compiler plugin
 collektive {
     collektiveEnabled = true
-}
-
-afterEvaluate {
-    listOf("uploadKotlinOSSRHToMavenCentralNexus").forEach {
-        tasks.named(it).configure {
-            enabled = false
-        }
-    }
 }

@@ -1,3 +1,595 @@
+## [12.0.5](https://github.com/Collektive/collektive/compare/12.0.4...12.0.5) (2025-01-09)
+
+### Documentation
+
+* enable dokka v2 ([#685](https://github.com/Collektive/collektive/issues/685)) ([18d758a](https://github.com/Collektive/collektive/commit/18d758a3c099cd3e667cac7c23be78760cf14474))
+
+## [12.0.4](https://github.com/Collektive/collektive/compare/12.0.3...12.0.4) (2025-01-09)
+
+### Dependency updates
+
+* **deps:** update plugin publishoncentral to v8.0.1 ([45ea178](https://github.com/Collektive/collektive/commit/45ea178597fb47e475dfcc4f62e8aca448ba97aa))
+
+### Bug Fixes
+
+* release all gradle plugins on Maven Central ([ddedfe4](https://github.com/Collektive/collektive/commit/ddedfe45b2054d5df9156110cf27c3e20537cad0))
+
+### Build and continuous integration
+
+* **deps:** update danysk/action-create-ossrh-staging-repo action to v1.1.0 ([b281640](https://github.com/Collektive/collektive/commit/b281640f237bb8c1c97e5673a81798b7d0c2e70f))
+
+## [12.0.3](https://github.com/Collektive/collektive/compare/12.0.2...12.0.3) (2025-01-09)
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.118 ([bc01d18](https://github.com/Collektive/collektive/commit/bc01d18878dc83c7480601bb897e32a7fe244e86))
+* **deps:** update node.js to 22.13 ([4291385](https://github.com/Collektive/collektive/commit/4291385203e87b636245136456be954c2b4eadbc))
+
+### Bug Fixes
+
+* use appropriate warning type preventing error inside Intellij `java.lang.NoClassDefFoundError: org/jetbrains/kotlin/com/intellij/psi/PsiElement` ([#684](https://github.com/Collektive/collektive/issues/684)) ([86ece5e](https://github.com/Collektive/collektive/commit/86ece5e40e071596881b68674d1e01d3d40dc7fc))
+
+## [12.0.2](https://github.com/Collektive/collektive/compare/12.0.1...12.0.2) (2025-01-08)
+
+### Dependency updates
+
+* **core-deps:** update plugin kover to v0.9.1 ([3848660](https://github.com/Collektive/collektive/commit/3848660ce5d50df5419647c46affd155f2e097bb))
+* **deps:** update docusaurus monorepo to v3.7.0 ([fc8a898](https://github.com/Collektive/collektive/commit/fc8a898ad5a9baf9f98c07f94550a4feb372128b))
+
+### Build and continuous integration
+
+* enable SARIF reports for ktlint ([#627](https://github.com/Collektive/collektive/issues/627)) ([ff660d3](https://github.com/Collektive/collektive/commit/ff660d3b696706063785da2b17159a8675e9dd64))
+* merge sarif reports (detekt and ktlint) ([10dd234](https://github.com/Collektive/collektive/commit/10dd2340651eb7258f843e242bebc0f855a2d44f))
+
+## [12.0.1](https://github.com/Collektive/collektive/compare/12.0.0...12.0.1) (2025-01-07)
+
+### Dependency updates
+
+* **core-deps:** update kotlin monorepo to v2.1.0 ([4514503](https://github.com/Collektive/collektive/commit/4514503a2828ea957c51bf52bd3461243c29e908))
+* **deps:** update dependency commons-codec:commons-codec to v1.17.2 ([82108a8](https://github.com/Collektive/collektive/commit/82108a84b0d748b897a79708885d2916dd21c1fa))
+* **deps:** update dependency io.github.freshmag:subjekt-api to v1.1.5 ([04f06d6](https://github.com/Collektive/collektive/commit/04f06d63f38783b555da44967170a2412d2ca0c1))
+
+### Tests
+
+* **dsl:** changed test with 'share' construct using the implicit parameter ([#674](https://github.com/Collektive/collektive/issues/674)) ([d270349](https://github.com/Collektive/collektive/commit/d27034912ffc21ec7c51bfc9385f04e60bdc4151))
+
+### Build and continuous integration
+
+* disable `allWarningsAsErrors` because of a bug in kotest https://github.com/kotest/kotest/pull/4598 ([98ab83d](https://github.com/Collektive/collektive/commit/98ab83d11ddab6a679fe72199d304ad2b3e9bee1))
+* disable dokka 2 ([30e4083](https://github.com/Collektive/collektive/commit/30e40830ac299ce66bd5025cb122e83755f4020f))
+* enable dokka 2.0.0 ([085b79c](https://github.com/Collektive/collektive/commit/085b79c50c26eb377cf7eadcfc6bdcd5899ad1b5))
+* setup dokka with new logo ([2cc3b5d](https://github.com/Collektive/collektive/commit/2cc3b5d461236a14d33647e449de7ce305494211))
+* use new API for setting compiler options ([1b2d262](https://github.com/Collektive/collektive/commit/1b2d262a7b1a5e7c5e1ad7b3db39320958c5ba68))
+
+### General maintenance
+
+* remove assets ([dcb022c](https://github.com/Collektive/collektive/commit/dcb022cbbe870178be76ee5e3a79a36012431ebb))
+
+### Refactoring
+
+* use kotlin 2.1.0 compiler api ([cd469ed](https://github.com/Collektive/collektive/commit/cd469ed0434fb3405295f8dd434911e4a42c9966))
+* use new kotlin compiler api ([e631cfd](https://github.com/Collektive/collektive/commit/e631cfda68b22efc904b213de87377c91a82d8c2))
+
+## [12.0.0](https://github.com/Collektive/collektive/compare/11.2.0...12.0.0) (2024-12-28)
+
+### ⚠ BREAKING CHANGES
+
+* **code-gen:** remove `plus` operators for `String` type since a more generic version in the kotlin stdlib shadows our generations (#620)
+
+### Dependency updates
+
+* **deps:** update plugin multijvmtesting to v3.1.1 ([f000068](https://github.com/Collektive/collektive/commit/f000068e1a8be3411c5ef43014c273ade3362b20))
+* **deps:** update plugin multijvmtesting to v3.1.2 ([37bf7ad](https://github.com/Collektive/collektive/commit/37bf7ad04a3c424fb0c8c953f693c7687ec6e27d))
+
+### Bug Fixes
+
+* **code-gen:** remove `plus` operators for `String` type since a more generic version in the kotlin stdlib shadows our generations ([#620](https://github.com/Collektive/collektive/issues/620)) ([989649b](https://github.com/Collektive/collektive/commit/989649b88ecd421db7747bf67c16869ccf4e5280))
+
+## [11.2.0](https://github.com/Collektive/collektive/compare/11.1.3...11.2.0) (2024-12-24)
+
+### Features
+
+* drop `com.tschuchort` library using new compiler embeddable library for testing the frontend compiler plugin ([#670](https://github.com/Collektive/collektive/issues/670)) ([74022bf](https://github.com/Collektive/collektive/commit/74022bfff4e86d9850d4a2ab02e653220e4d0a86))
+
+### Dependency updates
+
+* **deps:** update alchemist to v36.0.12 ([2efa4d6](https://github.com/Collektive/collektive/commit/2efa4d6f7b3ce5103a1d81676bb88c9fd3eb2e32))
+* **deps:** update dependency gradle to v8.12 ([59608bf](https://github.com/Collektive/collektive/commit/59608bf791d23833d22edf0f2aa7d257e4c637c5))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.117 ([2cce4cc](https://github.com/Collektive/collektive/commit/2cce4ccb12a7168e9d68db0b3b4904c69be70474))
+* **deps:** update plugin multijvmtesting to v3.0.2 ([b145993](https://github.com/Collektive/collektive/commit/b14599343b2df9f5661664ddf5e2b62a8919544a))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.18 ([83284ca](https://github.com/Collektive/collektive/commit/83284ca16c8038f199c96a07557502517eba3696))
+* **deps:** update plugin publishoncentral to v7.0.3 ([96a8de3](https://github.com/Collektive/collektive/commit/96a8de3625af96da781cb1ae252a10e293f37dc3))
+* **deps:** update plugin publishoncentral to v7.0.4 ([cfa2d26](https://github.com/Collektive/collektive/commit/cfa2d26ed72be20f012aa4c33049de3dc478c2c5))
+
+### Build and continuous integration
+
+* change deprecated methods and unused variables ([#666](https://github.com/Collektive/collektive/issues/666)) ([b528e14](https://github.com/Collektive/collektive/commit/b528e14b2ab204faee652261ffdfb7b55228168a))
+* remove ps script ([b0661da](https://github.com/Collektive/collektive/commit/b0661daac51b699d4f822a5d6c847c145a72269c))
+
+### Style improvements
+
+* disable standard class signature for tests only ([1603348](https://github.com/Collektive/collektive/commit/160334810f739836abaa0de6aab9e4a40e8dca22))
+
+## [11.1.3](https://github.com/Collektive/collektive/compare/11.1.2...11.1.3) (2024-12-20)
+
+### Dependency updates
+
+* **deps:** update alchemist to v36.0.11 ([6a600bd](https://github.com/Collektive/collektive/commit/6a600bd00fda954bda57c2fbf5a034bae738b55d))
+* **deps:** update plugin publishoncentral to v7.0.2 ([6cdeb35](https://github.com/Collektive/collektive/commit/6cdeb354cf74a396b84591da28efd5011ad56205))
+
+### Bug Fixes
+
+* **build:** re-enabled publishing task for compiler embeddable sub-project ([#659](https://github.com/Collektive/collektive/issues/659)) ([9cdb6c2](https://github.com/Collektive/collektive/commit/9cdb6c2f1a0ac066c01b08b7040cd533776656df))
+
+## [11.1.2](https://github.com/Collektive/collektive/compare/11.1.1...11.1.2) (2024-12-19)
+
+### Dependency updates
+
+* **core-deps:** update plugin kover to v0.9.0 ([da5014c](https://github.com/Collektive/collektive/commit/da5014c3acc866b7c84e0d75c8de1d33b55103c0))
+* **deps:** update alchemist to v36.0.10 ([f9faf24](https://github.com/Collektive/collektive/commit/f9faf247cbd71899c1d55e0c01ac083965a4860e))
+
+### Build and continuous integration
+
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.28 ([cc122f3](https://github.com/Collektive/collektive/commit/cc122f3e2701ce7136aba70c6b6134e141dfa4ff))
+* drop repository after the releasy always ([3fd6781](https://github.com/Collektive/collektive/commit/3fd67810d3f91f3b5306f548ffe17285e64d105a))
+
+## [11.1.1](https://github.com/Collektive/collektive/compare/11.1.0...11.1.1) (2024-12-18)
+
+### Bug Fixes
+
+* solve a publication problem preventing the upload of compiler-plugin and gradle-plugin into the same staging repository ([a87ec30](https://github.com/Collektive/collektive/commit/a87ec3087db6de38745b428c73e5b88d466f578b))
+
+## [11.1.0](https://github.com/Collektive/collektive/compare/11.0.2...11.1.0) (2024-12-18)
+
+### Features
+
+* improve checker functionality when `Aggregate` is used as a parameter ([#582](https://github.com/Collektive/collektive/issues/582)) ([323a756](https://github.com/Collektive/collektive/commit/323a756a9a424b2b79b5a57f16e2d534c6fee252))
+
+### Dependency updates
+
+* **deps:** update alchemist to v36.0.4 ([47f9bd7](https://github.com/Collektive/collektive/commit/47f9bd7ef47d3911b849547f54e11f42636705cb))
+* **deps:** update alchemist to v36.0.5 ([b38539b](https://github.com/Collektive/collektive/commit/b38539b7e70b306211b3127ec329cb37ac03aa2b))
+* **deps:** update alchemist to v36.0.6 ([2303b53](https://github.com/Collektive/collektive/commit/2303b53bd84ebf6bb54cf8bd18c6905f229ca117))
+* **deps:** update alchemist to v36.0.7 ([1a0f96d](https://github.com/Collektive/collektive/commit/1a0f96dde2284fc6079a412dda7ec0295eaeaecd))
+* **deps:** update alchemist to v36.0.9 ([4aafea7](https://github.com/Collektive/collektive/commit/4aafea7f2514b671f28d9e8ba06bf75b411e3846))
+* **deps:** update dependency org.apache.commons:commons-text to v1.13.0 ([7abc326](https://github.com/Collektive/collektive/commit/7abc3266dfd757f660e7ff213432f24bf5db0bdb))
+* **deps:** update dependency org.jetbrains.dokka to v2 ([c81d71d](https://github.com/Collektive/collektive/commit/c81d71d7e1626defdf595bfedf3caa7be56b056e))
+* **deps:** update dependency prism-react-renderer to v2.4.1 ([6a76c61](https://github.com/Collektive/collektive/commit/6a76c6184f18efbe5c791302a0ccaed3481da4d4))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.116 ([dde7590](https://github.com/Collektive/collektive/commit/dde75903178ff1aa8f0b859b592c021df84bb914))
+* **deps:** update node.js to 22.12 ([90c731e](https://github.com/Collektive/collektive/commit/90c731ebe9eeb1cd271fe39f029ebc2b4927e3b0))
+* **deps:** update plugin com.gradle.develocity to v3.19 ([a84b652](https://github.com/Collektive/collektive/commit/a84b652de6265baa069e5f15d9eb0319c467697e))
+* **deps:** update plugin kotlin-qa to v0.78.0 ([8d155e5](https://github.com/Collektive/collektive/commit/8d155e5d8473a061fc8bcd64ce2fe87d18be6dab))
+* **deps:** update plugin multijvmtesting to v2 ([1bbd415](https://github.com/Collektive/collektive/commit/1bbd415458556734062c5d9e65474846e4b74cae))
+* **deps:** update plugin multijvmtesting to v2.0.1 ([1cc5ad9](https://github.com/Collektive/collektive/commit/1cc5ad986e2a2e0b5b16370ccc20ea9314dd7070))
+* **deps:** update plugin multijvmtesting to v3 ([f1df575](https://github.com/Collektive/collektive/commit/f1df5755a0dc8e22d05e29ae1c17d4f57132c861))
+* **deps:** update plugin multijvmtesting to v3.0.1 ([8f9a9bd](https://github.com/Collektive/collektive/commit/8f9a9bd9ead6dfe4a8c8d2b3e1b4f190ec3d01db))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.16 ([793e4b1](https://github.com/Collektive/collektive/commit/793e4b1b3e3afce262e18a901c269758ee62ef7d))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.17 ([4e56dcb](https://github.com/Collektive/collektive/commit/4e56dcbf46e361ea135583a76fc026e1c2ae10d4))
+* **deps:** update plugin publishoncentral to v6 ([0944a0b](https://github.com/Collektive/collektive/commit/0944a0bc8412a24eb72bfe60c5e782eace87d8a0))
+* **deps:** update plugin publishoncentral to v6.0.1 ([a3a230e](https://github.com/Collektive/collektive/commit/a3a230edb20b7ffddbbeead814fa179813d28c4a))
+* **deps:** update plugin publishoncentral to v7 ([c7be422](https://github.com/Collektive/collektive/commit/c7be4227c7af49d8266aec6264d143870a7b4573))
+* **deps:** update plugin publishoncentral to v7.0.1 ([ff9cf11](https://github.com/Collektive/collektive/commit/ff9cf11613c830ba11ab5fd90ed938a2eb4e6e92))
+
+### Build and continuous integration
+
+* **deps:** bump cross-spawn from 7.0.3 to 7.0.5 in /site ([#589](https://github.com/Collektive/collektive/issues/589)) ([f15653d](https://github.com/Collektive/collektive/commit/f15653d4559d318d3a1b8032a66718788795e898))
+* **deps:** update actions/upload-artifact action to v4.5.0 ([a47b83f](https://github.com/Collektive/collektive/commit/a47b83f38543b2535db205dc1ba47b01d64ac5e9))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.24 ([31e3060](https://github.com/Collektive/collektive/commit/31e30603b4ff819eb5ef0a877b7a290b756ca4f3))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.25 ([66195cf](https://github.com/Collektive/collektive/commit/66195cf8742a6229cca4f44d64df195f6e354875))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.26 ([3371402](https://github.com/Collektive/collektive/commit/33714028869ec9bb90078e0ba33a4acb6725e4e6))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.27 ([b5de070](https://github.com/Collektive/collektive/commit/b5de07026251554187b18b01f4949767a2172ad3))
+* do not restore stagin repo ids in PRs ([01d77b1](https://github.com/Collektive/collektive/commit/01d77b15461238c8e95e1ce3845301543cc9477a))
+* enable caching and incremental compilation for speedup the build process ([ec08b9d](https://github.com/Collektive/collektive/commit/ec08b9d393e722cec4eca40a9a4fa5db4b365c77))
+* enable SARIF reports upload ([#626](https://github.com/Collektive/collektive/issues/626)) ([b263637](https://github.com/Collektive/collektive/commit/b263637b29ae63173732d292292014fd9fb5cd92))
+* optimized build leveraging macos runner for publishing ([#639](https://github.com/Collektive/collektive/issues/639)) ([36b6330](https://github.com/Collektive/collektive/commit/36b633092e1662aeaee06338404238a0cd439168))
+* override check command to upload code coverage ([4ea18c8](https://github.com/Collektive/collektive/commit/4ea18c81f6581d7337f9030b77a11e6491c781ef))
+* prevent supertypes on new line formatting (ktlint) ([fb06406](https://github.com/Collektive/collektive/commit/fb064067f34a8f647f02fdbadb2e7152e59aefc3))
+* remove uneeded drop since it will be performed always at the end ([5a33374](https://github.com/Collektive/collektive/commit/5a333746aa317575cb0c2950759b8e05458c0037))
+* set kover path explicit for codecov ([6c85264](https://github.com/Collektive/collektive/commit/6c852645a2a4d7ab2bec0c16be36c83c79a22dfc))
+* success depends also on website build ([ba4a7b6](https://github.com/Collektive/collektive/commit/ba4a7b62965b161b01272719561c9fca1868a1a7))
+* success task depend on build-website ([7d341f2](https://github.com/Collektive/collektive/commit/7d341f2e9e1a60346aa00e3047a5c05e7df187fa))
+* upload also gradle plugin and compiler plugin ([b8a4852](https://github.com/Collektive/collektive/commit/b8a4852f1483abc821d8bca480891f721359f1e9))
+* use curl for last step closing repository ([f3ba554](https://github.com/Collektive/collektive/commit/f3ba554c806f0dec5d84db1ebf40fb48f4fa3060))
+
+### Style improvements
+
+* new formatting according to new styling rules ([760ef8a](https://github.com/Collektive/collektive/commit/760ef8a7400bcdf49ad72471146f54bf41b64d0b))
+* new formatting according to new styling rules ([2bd2bb8](https://github.com/Collektive/collektive/commit/2bd2bb8d5412a985d19f57c4c398b76eafe0cc78))
+
+## [11.0.2](https://github.com/Collektive/collektive/compare/11.0.1...11.0.2) (2024-12-02)
+
+### Dependency updates
+
+* **deps:** update plugin org.gradle.toolchains.foojay-resolver-convention to v0.9.0 ([95a2724](https://github.com/Collektive/collektive/commit/95a2724547620b5151322d2f0d6fe8def5d9efe6))
+
+### Bug Fixes
+
+* **stdlib:** non-self-stabilizing gossip implemented with fold instead of hood ([#579](https://github.com/Collektive/collektive/issues/579)) ([3de2401](https://github.com/Collektive/collektive/commit/3de24014235dad3b4f2de6697c37428e4ff2e550))
+
+## [11.0.1](https://github.com/Collektive/collektive/compare/11.0.0...11.0.1) (2024-11-30)
+
+### Dependency updates
+
+* **deps:** update alchemist to v35.0.1 ([72ff9bc](https://github.com/Collektive/collektive/commit/72ff9bcf72ff184b55338458a428815bc61cfe45))
+* **deps:** update alchemist to v35.0.2 ([636e97e](https://github.com/Collektive/collektive/commit/636e97ebaf08513ec59aeec5b5c5713c14bfe86a))
+* **deps:** update alchemist to v35.0.3 ([0cabf44](https://github.com/Collektive/collektive/commit/0cabf4463ca228c6a5a9e83b5e43b37815d43e40))
+* **deps:** update alchemist to v36 ([2998725](https://github.com/Collektive/collektive/commit/2998725a7b7b5b9ff3c792bbd8de098ed3a12eeb))
+* **deps:** update alchemist to v36.0.1 ([c8282c4](https://github.com/Collektive/collektive/commit/c8282c4f99ebfcf7be5a27cbf5b527a8bc314fa5))
+* **deps:** update alchemist to v36.0.2 ([8aea0ff](https://github.com/Collektive/collektive/commit/8aea0ffff752776410666493ce55d6f26c00d606))
+* **deps:** update alchemist to v36.0.3 ([dc3d28e](https://github.com/Collektive/collektive/commit/dc3d28efba1e59166ac703d034ac0666bc187501))
+* **deps:** update dependency com.github.gmazzo.buildconfig to v5.5.1 ([92e1bd6](https://github.com/Collektive/collektive/commit/92e1bd640ba1c8a42bc14027149837ebacb549fb))
+* **deps:** update dependency gradle to v8.11 ([6635b68](https://github.com/Collektive/collektive/commit/6635b682340f71f510767f426b1ba42ebd1e1012))
+* **deps:** update dependency gradle to v8.11.1 ([3c3104c](https://github.com/Collektive/collektive/commit/3c3104cccaa9864b09ba9128bf593215b090f4f1))
+* **deps:** update dependency typescript to ~5.7.0 ([c27b791](https://github.com/Collektive/collektive/commit/c27b791857657df7ba0725a1cb75d485728ca95f))
+* **deps:** update docusaurus monorepo to v3.6.2 ([0ec0b9b](https://github.com/Collektive/collektive/commit/0ec0b9bca33c2d2afed50d0740e795051f99b756))
+* **deps:** update docusaurus monorepo to v3.6.3 ([dbbf757](https://github.com/Collektive/collektive/commit/dbbf75728213f50ed882469bc4987898b06899ba))
+* **deps:** update plugin kotlin-qa to v0.70.0 ([d26972d](https://github.com/Collektive/collektive/commit/d26972d61cdc35e29bc5eed25fea3dbaef8611ae))
+* **deps:** update plugin kotlin-qa to v0.70.1 ([c09c666](https://github.com/Collektive/collektive/commit/c09c666c96c566c54edc38242d21bb829c339e9b))
+* **deps:** update plugin kotlin-qa to v0.70.2 ([a1e533e](https://github.com/Collektive/collektive/commit/a1e533e73f8e8d957401da1ea32c0222693ddf19))
+* **deps:** update plugin kotlin-qa to v0.74.0 ([3b0e1a0](https://github.com/Collektive/collektive/commit/3b0e1a02220e1e7c8cf74b07b22917c07afa529d))
+* **deps:** update plugin kotlin-qa to v0.75.0 ([dc1911b](https://github.com/Collektive/collektive/commit/dc1911bb8851edf292368c8098a552163602244d))
+* **deps:** update plugin multijvmtesting to v1.3.1 ([bb08140](https://github.com/Collektive/collektive/commit/bb081404a271d5bf78b29f25062bbb7a75588f51))
+* **deps:** update plugin multijvmtesting to v1.3.2 ([abd3512](https://github.com/Collektive/collektive/commit/abd3512bc0803ca10db95283972f1d7399137aaa))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.14 ([1486f09](https://github.com/Collektive/collektive/commit/1486f09095d08e94f2a467ac8a200f18c8ce4749))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.15 ([0f611b0](https://github.com/Collektive/collektive/commit/0f611b032eaa3bd3d9e22cf3f921c3710808d8df))
+* **deps:** update plugin publishoncentral to v5.1.10 ([830240f](https://github.com/Collektive/collektive/commit/830240f6f6441cb598701d09628683fad60add6f))
+* **deps:** update plugin publishoncentral to v5.1.11 ([08f1df4](https://github.com/Collektive/collektive/commit/08f1df4887a3e539913d86065f32ebc4178ab402))
+
+### Bug Fixes
+
+* fix bug with yielding-based functions causing a ClassCastException ([#616](https://github.com/Collektive/collektive/issues/616)) ([39cd80a](https://github.com/Collektive/collektive/commit/39cd80ad2a0cd53f8c5e7adc56ced251c6cb3223))
+
+### Build and continuous integration
+
+* add a forced cleanup job to keep OSSRH clean ([bca17dc](https://github.com/Collektive/collektive/commit/bca17dc1c0d5c0d31c35c1c5936f6dae0b93816e))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.15 ([9ec3864](https://github.com/Collektive/collektive/commit/9ec3864d2976050f3d8d7653cf9721e047e79dbd))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.16 ([373b0d2](https://github.com/Collektive/collektive/commit/373b0d22eacab53d0166c1228a02b4ec44941327))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.17 ([d8c3e17](https://github.com/Collektive/collektive/commit/d8c3e17566cac5d13e69575da18d39925dc3b114))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.18 ([95fc1c7](https://github.com/Collektive/collektive/commit/95fc1c76f2313f955165af2eff027586ca97d490))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.19 ([c903733](https://github.com/Collektive/collektive/commit/c903733c069b02c3c1ffecf9410fbbce076a1f2d))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.20 ([799e74d](https://github.com/Collektive/collektive/commit/799e74d957dac6c7d8866704cf72fe3c906e3060))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.21 ([4e158cb](https://github.com/Collektive/collektive/commit/4e158cb054bb6a3dee87c6aa83b1a2f822d5163e))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.22 ([715993c](https://github.com/Collektive/collektive/commit/715993c4b34e41eadf427bd1743d02ba7974ce42))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.23 ([ed915ad](https://github.com/Collektive/collektive/commit/ed915ad07602bb4181fcc60c5674de8b8f52ff89))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.23 ([f969aa8](https://github.com/Collektive/collektive/commit/f969aa8fd4e05a928bbc607a895f22094642177a))
+
+### Style improvements
+
+* reformat style according to new style configuration ([142aa89](https://github.com/Collektive/collektive/commit/142aa894d46f1337619fa05ea4ff25babf07beb9))
+* reformat style according to new style configuration ([dcfb568](https://github.com/Collektive/collektive/commit/dcfb5683c6f5c7678151dcdbcf57ee25afc04a75))
+
+### Refactoring
+
+* move warnings and error in appropriate objects following the jetbrains convention ([#578](https://github.com/Collektive/collektive/issues/578)) ([a8ffc16](https://github.com/Collektive/collektive/commit/a8ffc1658ecb2d539cce437592f05875e7e8f2e9))
+
+## [11.0.0](https://github.com/Collektive/collektive/compare/10.11.1...11.0.0) (2024-11-14)
+
+### ⚠ BREAKING CHANGES
+
+* **dsl:** rename repeat/repeating functions into evolve/evolving (#577)
+
+### Refactoring
+
+* **dsl:** rename repeat/repeating functions into evolve/evolving ([#577](https://github.com/Collektive/collektive/issues/577)) ([b616ddb](https://github.com/Collektive/collektive/commit/b616ddbc2a1356a7277f2472559cfe40c3a778c5))
+
+## [10.11.1](https://github.com/Collektive/collektive/compare/10.11.0...10.11.1) (2024-11-14)
+
+### Dependency updates
+
+* **deps:** update alchemist to v35 ([97f03c9](https://github.com/Collektive/collektive/commit/97f03c9630c73cec754cd2d3974089d596a0a056))
+* **deps:** update dependency dev.zacsweers.kctfork:core to v0.6.0 ([8952271](https://github.com/Collektive/collektive/commit/89522714accbc8e8f2fe1c7905b6c0faedd8e2f9))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.115 ([a01b8d6](https://github.com/Collektive/collektive/commit/a01b8d643c04b16c8a39e79c61a2a3f7f668c3cf))
+* **deps:** update docusaurus monorepo to v3.6.1 ([4a6015d](https://github.com/Collektive/collektive/commit/4a6015da313b0afb8bbc7e8d547f7f9e032e528f))
+* **deps:** update plugin com.gradle.develocity to v3.18.2 ([1bc080b](https://github.com/Collektive/collektive/commit/1bc080ba9a2baacc16b870cd71c89243664d660c))
+
+### Bug Fixes
+
+* **dsl:** add regression test for Path cache IllegalStateException ([#567](https://github.com/Collektive/collektive/issues/567)) ([dae88e2](https://github.com/Collektive/collektive/commit/dae88e23c0383f76dcba7aad1c1869f3bced7fe6))
+
+### Build and continuous integration
+
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.13 ([28c0929](https://github.com/Collektive/collektive/commit/28c0929d51b169389e78f37f589c7be73702c3a9))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.14 ([f49c78f](https://github.com/Collektive/collektive/commit/f49c78fa53da8bb21fd9af6e57360bbc1c6f6d02))
+* move stop gradle on windows before the deploy step preventing failing silently the CI ([8e1f0e4](https://github.com/Collektive/collektive/commit/8e1f0e4d4908ebecb98bbd0b0ee0692e5913a690))
+
+### Style improvements
+
+* explicit name in outer lambda ([3502860](https://github.com/Collektive/collektive/commit/3502860e396cfe00064f03f206847558882b6142))
+* reformat file according to ktlin ([3481efd](https://github.com/Collektive/collektive/commit/3481efdd027081a5f4c23648aa53a1967e909a6a))
+
+## [10.11.0](https://github.com/Collektive/collektive/compare/10.10.0...10.11.0) (2024-11-11)
+
+### Features
+
+* **field:** change `toString` representation for `Field` ([#558](https://github.com/Collektive/collektive/issues/558)) ([15b37a9](https://github.com/Collektive/collektive/commit/15b37a93a3d5a4ffcf47dbcd4bfe7df175ca7cc9))
+
+## [10.10.0](https://github.com/Collektive/collektive/compare/10.9.0...10.10.0) (2024-11-10)
+
+### Features
+
+* **field:** add `alignedMapWithId` for consistency with `*WithId` functions ([#554](https://github.com/Collektive/collektive/issues/554)) ([201f1bf](https://github.com/Collektive/collektive/commit/201f1bf70b9f67267b979875843c6c9bfe8042da))
+
+### Dependency updates
+
+* **deps:** update alchemist to v34.1.13 ([92e45ef](https://github.com/Collektive/collektive/commit/92e45ef04c7e8a9626b61903c3a4640b15fc2ac6))
+* **deps:** update alchemist to v34.1.14 ([9906d63](https://github.com/Collektive/collektive/commit/9906d6398c98c9c8ab1c78f5b12f6e5725c09a86))
+* **deps:** update plugin multijvmtesting to v1.3.0 ([3f80fac](https://github.com/Collektive/collektive/commit/3f80fac61f0f3318f45dd1bb8ebb547b839f4c21))
+
+## [10.9.0](https://github.com/Collektive/collektive/compare/10.8.0...10.9.0) (2024-11-08)
+
+### Features
+
+* **compiler-plugin:** new checker for collections' methods, refactoring and new testing utility ([#508](https://github.com/Collektive/collektive/issues/508)) ([d9cd8b3](https://github.com/Collektive/collektive/commit/d9cd8b3e8a2582972415ad9dad76c26a90abad7c)), closes [#489](https://github.com/Collektive/collektive/issues/489)
+
+## [10.8.0](https://github.com/Collektive/collektive/compare/10.7.0...10.8.0) (2024-11-07)
+
+### Features
+
+* **field:** add `replaceMatching` method replacing the values in a field matching a given predicate ([#550](https://github.com/Collektive/collektive/issues/550)) ([ca768d0](https://github.com/Collektive/collektive/commit/ca768d0c6e9182893ec4d4a94bea9049da306241))
+
+### Dependency updates
+
+* **deps:** update alchemist to v34.1.12 ([81f4d20](https://github.com/Collektive/collektive/commit/81f4d20f928320eb5abdf889cc25c591ae2b600e))
+* **deps:** update docusaurus monorepo to v3.6.0 ([c7e9243](https://github.com/Collektive/collektive/commit/c7e92432ed9dff67a2c3d5acc31aa997aeb24a7e))
+
+### General maintenance
+
+* add basic codecov configuration ([1f4a8c9](https://github.com/Collektive/collektive/commit/1f4a8c98380488c2d50b7deba59544d0bec93ec0))
+
+## [10.7.0](https://github.com/Collektive/collektive/compare/10.6.0...10.7.0) (2024-11-06)
+
+### Features
+
+* add aggregate gossip algorithm ([85e9a70](https://github.com/Collektive/collektive/commit/85e9a70e7b4183397b9f8231142d1751b0f859c1))
+* add ever happened gossip algorithm ([16f9439](https://github.com/Collektive/collektive/commit/16f94390439950974d081fc4ec77e1dc48432d93))
+* add gossipMax and Min with default comparator ([e4fd957](https://github.com/Collektive/collektive/commit/e4fd957c94ac6185935eafc7299e3ef783cf7dd8))
+* add non-self-stabilizing gossip and gossip ever happened ([3140aa4](https://github.com/Collektive/collektive/commit/3140aa409a535ff633474d2e23a5413fd7a731c6))
+
+### Dependency updates
+
+* **deps:** update alchemist to v34.1.10 ([17dc503](https://github.com/Collektive/collektive/commit/17dc503ad975d2fa86bc6215eb2b98113f06ecea))
+* **deps:** update alchemist to v34.1.11 ([bef740d](https://github.com/Collektive/collektive/commit/bef740db5b695e64cd368eeb804f1b12483f587c))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.113 ([f0f60a2](https://github.com/Collektive/collektive/commit/f0f60a28205d0314d4e726411c9889c15e431317))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.114 ([b577726](https://github.com/Collektive/collektive/commit/b577726628ad8ff15cca0508c512ebaa998c02e8))
+* **deps:** update node.js to v22 ([c37ef8a](https://github.com/Collektive/collektive/commit/c37ef8a51962acd920b70765cb36d46cdfa0e5f2))
+
+### Documentation
+
+* add doc to gossip objects ([f140ad6](https://github.com/Collektive/collektive/commit/f140ad6af705cd255e7b0fcb1e974712bbdd47c0))
+* minor in gossipMin doc ([423f2dd](https://github.com/Collektive/collektive/commit/423f2ddd1885b6dce405f8369e90d7ecc211da6a))
+
+### Performance improvements
+
+* improve algorithm by checking the presence of more than one neighbor in the incoming path ([d37508a](https://github.com/Collektive/collektive/commit/d37508aa30adf414739bc6aeffd8d20beddb39dc))
+
+### Tests
+
+* add check on result of the computation ([636a4fc](https://github.com/Collektive/collektive/commit/636a4fcd309a506cf70a0adef20c6dfec5de0adf))
+* add test for gossipMin ([93b8652](https://github.com/Collektive/collektive/commit/93b8652c45a4794e7bc5ccc76d556e20205ca57b))
+* add test for stabilizing gossip ([39562f2](https://github.com/Collektive/collektive/commit/39562f2cd7a1906f0289d716588f3f21c239256d))
+* refactor gossipMax function as in stdlib ([d87ac21](https://github.com/Collektive/collektive/commit/d87ac210be17183733b8990173094883b2349fef))
+
+### Build and continuous integration
+
+* **deps:** update nicolasfara/precompute-semantic-release-version-action action to v2.0.2 ([c0de79b](https://github.com/Collektive/collektive/commit/c0de79b48ddaafcfe4b73e7bd525fc72d1aba041))
+* **renovate:**  use `with` when importing the configuration instead of `assert` ([dc63d13](https://github.com/Collektive/collektive/commit/dc63d1376175dfd5475c080db0652adc8f901cb5))
+
+### General maintenance
+
+* remove useless spacing ([cbefd9c](https://github.com/Collektive/collektive/commit/cbefd9cd1426772750fa3de5836a76dbe5e4c4a2))
+
+### Style improvements
+
+* unify generic type and change function indentation ([60ee490](https://github.com/Collektive/collektive/commit/60ee490efb3eaca3e0412b98c3ba626b70645302))
+
+### Refactoring
+
+* function names ([eb76a21](https://github.com/Collektive/collektive/commit/eb76a213f5cd36412d4819bef097e93c5d10d411))
+* keep track of neighbor's initial value to avoid losing rounds ([6882524](https://github.com/Collektive/collektive/commit/68825241e4bb9ca573975847185efb480c517fd3))
+* minors on val names and docs ([5f58744](https://github.com/Collektive/collektive/commit/5f58744399c3cae622e8eb517fc16d5e46914f71))
+* more idiomatic implementation ([45f518e](https://github.com/Collektive/collektive/commit/45f518edf67534896c4019c9248c2e5bfad2cc54))
+* rename function and generic types ([dad4673](https://github.com/Collektive/collektive/commit/dad46739112aceeb068bdf24c3a9cc9038f921c1))
+* rename function name as [@danysk](https://github.com/danysk) suggested ([9ce71c7](https://github.com/Collektive/collektive/commit/9ce71c74f67d2f35272a2f743025a330531829e5))
+* use foldWithID inside gossip function ([e30454c](https://github.com/Collektive/collektive/commit/e30454c88cbed6c8f9ee0f3f8924f0dbfeb0b3cd))
+
+## [10.6.0](https://github.com/Collektive/collektive/compare/10.5.3...10.6.0) (2024-10-31)
+
+### Features
+
+* **fields:** add hood and fold with IDs ([#536](https://github.com/Collektive/collektive/issues/536)) ([d60caa8](https://github.com/Collektive/collektive/commit/d60caa8a331dd2f2a243db9368017597029c882f))
+
+### Build and continuous integration
+
+* remove generated stdlib from coverage ([dceb268](https://github.com/Collektive/collektive/commit/dceb26837eb47e76fbc6e07cf8ff99818ff6df99))
+* set codecov folder pointing to kover output reports ([d9aade6](https://github.com/Collektive/collektive/commit/d9aade6e88b6ee25122e102ccde9214aa8ff1049))
+
+## [10.5.3](https://github.com/Collektive/collektive/compare/10.5.2...10.5.3) (2024-10-28)
+
+### Dependency updates
+
+* **core-deps:** update kotlin monorepo to v2.0.21 ([4917030](https://github.com/Collektive/collektive/commit/49170309c5c21eea84290bdd2280e077185c94d8))
+* **deps:** update alchemist to v34.1.9 ([7e04f77](https://github.com/Collektive/collektive/commit/7e04f77f67942c3bcdfac246b498b4d28f20a49f))
+* **deps:** update dependency com.squareup:kotlinpoet to v2 ([27ea520](https://github.com/Collektive/collektive/commit/27ea520f0ac72eb3f355bce7f6162d966beecfb3))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.112 ([9afaa36](https://github.com/Collektive/collektive/commit/9afaa36d5d6eda344f51a5d79177e52ca90c9257))
+* **deps:** update plugin kotlin-qa to v0.69.0 ([2112b43](https://github.com/Collektive/collektive/commit/2112b436b956c44c7d9f8920792271c38a070b16))
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v4.2.2 ([45a9e38](https://github.com/Collektive/collektive/commit/45a9e38f0ba981d5d61c1e6188fffcf1f059c41d))
+* **deps:** update actions/setup-node action to v4.1.0 ([93acd3b](https://github.com/Collektive/collektive/commit/93acd3bae3dc624e3568810c9a79d705ea3d571a))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.12 ([6fdb751](https://github.com/Collektive/collektive/commit/6fdb751c1fa85e1b2e972c451085004c8a60e542))
+* fail fast during the release job ([f9c9e3b](https://github.com/Collektive/collektive/commit/f9c9e3b801047361ec9c8c4e5951267d1cc22bc7))
+* fix git status on documentation repository ([12d0f32](https://github.com/Collektive/collektive/commit/12d0f3256ff8e0a52e8ce9c4430dd8f40d616486))
+* properly manage site pubblication when no changes to the website are performed but a release is required ([e158bf4](https://github.com/Collektive/collektive/commit/e158bf40634fd16344fc1b057dd781de4f26697a))
+* use organisation secret ([45ec9d4](https://github.com/Collektive/collektive/commit/45ec9d41f40177ff3e081c28c669ba54ee9db636))
+
+### Style improvements
+
+* remove warning ([58805a4](https://github.com/Collektive/collektive/commit/58805a4c8392e8df8913633ff05730e6f293cf0e))
+
+## [10.5.2](https://github.com/Collektive/collektive/compare/10.5.1...10.5.2) (2024-10-22)
+
+### Dependency updates
+
+* **deps:** update alchemist to v34.1.8 ([198c13c](https://github.com/Collektive/collektive/commit/198c13c388758157f16acbcb4aea59fa200952e9))
+
+### Documentation
+
+* **site:** update algolia api pointing to unlimited account ([1ed91ec](https://github.com/Collektive/collektive/commit/1ed91ec7cb05623c39998712d71a0b24c56572bc))
+
+### Build and continuous integration
+
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.11 ([041b0ff](https://github.com/Collektive/collektive/commit/041b0ffeded04beefa029956eb5ec77a4584a369))
+
+## [10.5.1](https://github.com/Collektive/collektive/compare/10.5.0...10.5.1) (2024-10-22)
+
+### Dependency updates
+
+* **deps:** update dependency it.unibo.alchemist:alchemist-api to v34.1.7 ([0487e63](https://github.com/Collektive/collektive/commit/0487e63506f662a8228be087d16b7f5914815acc))
+
+### Documentation
+
+* **site:** setup getting started page and enable algola search ([0f8089d](https://github.com/Collektive/collektive/commit/0f8089d7645f01a2f214ebff24f4a89537922a80))
+
+## [10.5.0](https://github.com/Collektive/collektive/compare/10.4.0...10.5.0) (2024-10-21)
+
+### Dependency updates
+
+* **api-deps:** update kotlin to v2.0.20 and Kotest to v6.0.0.M1 ([#518](https://github.com/Collektive/collektive/issues/518)) ([629076b](https://github.com/Collektive/collektive/commit/629076b5bfb239f4f4ad2d23988f21dfc3351c1a))
+* **deps:** update alchemist to v34.1.6 ([6653b67](https://github.com/Collektive/collektive/commit/6653b67425564d19ac2349bf2a464df552554091))
+* **deps:** update dependency @mdx-js/react to v3.1.0 ([998bc35](https://github.com/Collektive/collektive/commit/998bc3539ad8f2ee4acff5785897b7769889747c))
+
+### Build and continuous integration
+
+* use the built-in feature of setup-node to install the correct node engine version ([#519](https://github.com/Collektive/collektive/issues/519)) ([3fdfa8b](https://github.com/Collektive/collektive/commit/3fdfa8b4a2d93b7f33bc6b1c033e46cffa2219bc))
+
+### General maintenance
+
+* **release:** 10.5.0 [skip ci] ([42b3f4b](https://github.com/Collektive/collektive/commit/42b3f4be23b08cbc8fa411b476141e173c49ca11)), closes [#518](https://github.com/Collektive/collektive/issues/518)
+
+## [10.5.0](https://github.com/Collektive/collektive/compare/10.4.0...10.5.0) (2024-10-20)
+
+### Dependency updates
+
+* **api-deps:** update kotlin to v2.0.20 and Kotest to v6.0.0.M1 ([#518](https://github.com/Collektive/collektive/issues/518)) ([629076b](https://github.com/Collektive/collektive/commit/629076b5bfb239f4f4ad2d23988f21dfc3351c1a))
+
+## [10.4.0](https://github.com/Collektive/collektive/compare/10.3.2...10.4.0) (2024-10-19)
+
+### Features
+
+* create site for documentation ([f135443](https://github.com/Collektive/collektive/commit/f1354437ffac517d25f5dbfc7fb5de840680cedf))
+
+### Dependency updates
+
+* **deps:** update alchemist to v34.1.5 ([ae2ff42](https://github.com/Collektive/collektive/commit/ae2ff4260ab45d1171b72b7bc2b9d5ce32f791a6))
+* **deps:** update dependency gradle to v8.10.2 ([ddb55c2](https://github.com/Collektive/collektive/commit/ddb55c2eb17c1ef4657e9af560585af168a28cbe))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.107 ([1e7f015](https://github.com/Collektive/collektive/commit/1e7f01518e010feeb6654c871429f88e94d90f51))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.108 ([b7dc684](https://github.com/Collektive/collektive/commit/b7dc684438d53ce65b2bda2fd440b27aa4a6a590))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.109 ([657e09a](https://github.com/Collektive/collektive/commit/657e09a35f1b5539a9c6d33aa12e9fd628327f4d))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.110 ([9084d68](https://github.com/Collektive/collektive/commit/9084d68c93f97c214554cb7fe069f9f42704f1ce))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.111 ([aa03d44](https://github.com/Collektive/collektive/commit/aa03d4417cc51f765c4ce657f2a538a5251b26d0))
+* **deps:** update dependency typescript to ~5.6.0 ([6a936b6](https://github.com/Collektive/collektive/commit/6a936b635c59c487118362d35413eff1a812293b))
+* **deps:** update node.js to 20.18 ([70d78ef](https://github.com/Collektive/collektive/commit/70d78ef761e186f1e2af45af7c34774a16c231c6))
+* **deps:** update plugin kotlin-qa to v0.67.2 ([d8dee31](https://github.com/Collektive/collektive/commit/d8dee31c72d68b00206720ee49346eb60778663d))
+* **deps:** update plugin kotlin-qa to v0.67.3 ([4415f10](https://github.com/Collektive/collektive/commit/4415f1058f6efd9ce79ca1f72df426c872453ec8))
+* **deps:** update plugin kotlin-qa to v0.68.0 ([b4fce68](https://github.com/Collektive/collektive/commit/b4fce68628f9860e931d25d36aa31f904a53d5a0))
+* **deps:** update plugin multijvmtesting to v1.2.8 ([7d5985b](https://github.com/Collektive/collektive/commit/7d5985b06285ecfac4634e811d4561d736d72ef4))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.13 ([e8fb01d](https://github.com/Collektive/collektive/commit/e8fb01db30e6918b79e22ff424f44350bc9fdef4))
+* **deps:** update plugin publishoncentral to v5.1.8 ([8a7bd97](https://github.com/Collektive/collektive/commit/8a7bd97f0bfdd9c8acafcada0aefeb432fda6a5f))
+* **deps:** update plugin publishoncentral to v5.1.9 ([a9ddce6](https://github.com/Collektive/collektive/commit/a9ddce6a576234f7b82acbcb40aa12358e6882fa))
+
+### Documentation
+
+* **site:** revam frontpage ([2f1716b](https://github.com/Collektive/collektive/commit/2f1716b76faaa4074aca73a8a68ba0c62ae17e9e))
+* **website:** solved security warning ([80d149b](https://github.com/Collektive/collektive/commit/80d149b9df777a82500a79fe8d544cfe52fa1752))
+
+### Tests
+
+* using the same name convention for all test classes ([#489](https://github.com/Collektive/collektive/issues/489)) ([f72a900](https://github.com/Collektive/collektive/commit/f72a9009ac8aa00c1bbf1e3f8423c10b7666eba8))
+
+### Build and continuous integration
+
+* add command for website deployment ([5377d76](https://github.com/Collektive/collektive/commit/5377d76190a0ce5723b85a79ed3f34b2bfb5feca))
+* **deps:** remove arrow dependency ([e5bb75b](https://github.com/Collektive/collektive/commit/e5bb75b8d8c1cf76d9d88622d542917eca88c84f))
+* **deps:** update actions/checkout action to v4 ([947fbf4](https://github.com/Collektive/collektive/commit/947fbf4b74e694fccf61815debe4fe50655b52ee))
+* **deps:** update actions/checkout action to v4.2.0 ([ecac1eb](https://github.com/Collektive/collektive/commit/ecac1ebc48bae16ff0a100d22015a50d49510635))
+* **deps:** update actions/checkout action to v4.2.1 ([0ee79d2](https://github.com/Collektive/collektive/commit/0ee79d21afb3ca770cae3747174bed09418ac409))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.10 ([cc527e9](https://github.com/Collektive/collektive/commit/cc527e93dc025711eca40892c3d2c705b7c09606))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.7 ([1e43cb0](https://github.com/Collektive/collektive/commit/1e43cb0216cc0a7e5cf05018036d10a95d3f5925))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.8 ([358f8f0](https://github.com/Collektive/collektive/commit/358f8f03e4e6ea47b42134e3bbdd4451293250ff))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.9 ([05578a0](https://github.com/Collektive/collektive/commit/05578a08d0764f7c09320527062ed5711ec516cf))
+* enable website build and publish ([c120160](https://github.com/Collektive/collektive/commit/c12016022fa8e217265a8c0aa6fbc6b02d83e3f7))
+* fix token name ([5b5fcad](https://github.com/Collektive/collektive/commit/5b5fcadb1283791d9229818ec37da726f98baff0))
+* stop the Gradle Daemon on Windows before deployment to prevent "The process cannot access the file because it is being used by another process" ([a9a92e6](https://github.com/Collektive/collektive/commit/a9a92e6d2332502ecde13825af18db0771dc5d8b))
+
+### Style improvements
+
+* avoid star import ([cab883b](https://github.com/Collektive/collektive/commit/cab883bdb47ca34ae2aa1fed2ef6060e09c0d7e3))
+
+### Refactoring
+
+* **field:** change fold implementation to be not dependent from arrow ([52b7526](https://github.com/Collektive/collektive/commit/52b7526aa72d04305c4ab400f0c62ddb1b89509c))
+
+## [10.3.2](https://github.com/Collektive/collektive/compare/10.3.1...10.3.2) (2024-09-20)
+
+### Dependency updates
+
+* **deps:** update dependency com.github.gmazzo.buildconfig to v5.5.0 ([3a36dae](https://github.com/Collektive/collektive/commit/3a36dae868687d0fd193adb0efd6cb27242cfa41))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.106 ([ca1ff69](https://github.com/Collektive/collektive/commit/ca1ff69e1414beae2917d5e65e56edb4fa7a207d))
+* **deps:** update plugin publishoncentral to v5.1.7 ([5b7649d](https://github.com/Collektive/collektive/commit/5b7649d8ce7fbfcc86444a0cdf6e1aed4e29a157))
+
+### Documentation
+
+* add companion object kdoc ([53070fa](https://github.com/Collektive/collektive/commit/53070fa0f3920785c5cb230cf2beddcbe71e063c))
+
+### Build and continuous integration
+
+* **deps:** update actions/setup-node action to v4.0.4 ([53efd9f](https://github.com/Collektive/collektive/commit/53efd9ff3c1d2c96c0d4bae4484b7a4e8cffade8))
+
+## [10.3.1](https://github.com/Collektive/collektive/compare/10.3.0...10.3.1) (2024-09-13)
+
+### Dependency updates
+
+* **core-deps:** update dependency org.jetbrains.kotlinx:kotlinx-coroutines-core to v1.9.0 ([d06b1a4](https://github.com/Collektive/collektive/commit/d06b1a42f9525a82ce4cc1a3f1b741bf33918e11))
+* **deps:** update alchemist to v34.1.4 ([485b86d](https://github.com/Collektive/collektive/commit/485b86d674566ae12a3cebdf579bb1e434b002e4))
+* **deps:** update plugin multijvmtesting to v1.2.7 ([7343e54](https://github.com/Collektive/collektive/commit/7343e545e7ed99f8c4ff2f62c21cdfbe1aaa19c3))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.12 ([ab28284](https://github.com/Collektive/collektive/commit/ab2828449e1b0fd55c478b6201d92861ef786e2e))
+
+### Build and continuous integration
+
+* do not cancel in-progress builds ([b151f47](https://github.com/Collektive/collektive/commit/b151f47d9a95007b9da44744f14a39cb125d3b85))
+
+## [10.3.0](https://github.com/Collektive/collektive/compare/10.2.0...10.3.0) (2024-09-13)
+
+### Features
+
+* **compiler-plugin:** add two simple checkers on the frontend part ([#454](https://github.com/Collektive/collektive/issues/454)) ([391b21e](https://github.com/Collektive/collektive/commit/391b21ec8927760fe2f9775c549eecd48b4c33a4))
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.102 ([f9de327](https://github.com/Collektive/collektive/commit/f9de3273012938353e4ea5917898a38ecb78b6bf))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.103 ([14db92c](https://github.com/Collektive/collektive/commit/14db92c2ded079c3fd0bb08aece22cfc7b5b2c62))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.105 ([e1e3d0d](https://github.com/Collektive/collektive/commit/e1e3d0db317df33516486792d9573830345a1460))
+* **deps:** update plugin com.gradle.develocity to v3.18.1 ([45ecbd7](https://github.com/Collektive/collektive/commit/45ecbd7b05c36761a994a61c43c54624fe6739de))
+* **deps:** update plugin gradlepluginpublish to v1.3.0 ([da520f4](https://github.com/Collektive/collektive/commit/da520f4ebbdf78fc6be0b32ddc73e1006b44df70))
+* **deps:** update plugin multijvmtesting to v1.2.6 ([bd98504](https://github.com/Collektive/collektive/commit/bd98504b186481fc5d0efc9cfc3119c65e5bd656))
+* **deps:** update plugin org.danilopianini.gradle-pre-commit-git-hooks to v2.0.10 ([ef72b03](https://github.com/Collektive/collektive/commit/ef72b034f525e151aad2187203db93b390ad5ba5))
+
+### Documentation
+
+* document public companions ([2421855](https://github.com/Collektive/collektive/commit/242185564a59646c2252cc75e46092fddc6e94b5))
+
+### Build and continuous integration
+
+* change the concurrency group of staging-repo to prevent interleaving across branches ([b9c99e8](https://github.com/Collektive/collektive/commit/b9c99e8c484aac9c558daf933ddd72449aa82b0f))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.5 ([12aa27b](https://github.com/Collektive/collektive/commit/12aa27b95c17fc0ffd0c221edb01182d9540be7a))
+* **deps:** update danysk/build-check-deploy-gradle-action action to v3.5.6 ([9fcb40e](https://github.com/Collektive/collektive/commit/9fcb40ed60b4f45f40bef8b122540a9e9389915a))
+* **renovate:** disable automerge ([001ebbc](https://github.com/Collektive/collektive/commit/001ebbcd5d9a2032f86b3c707c03a3d0e3ff919e))
+
+### Refactoring
+
+* **alchemist-incarnation-collektive:** restrict the visibility of companion with private members only ([e4c1947](https://github.com/Collektive/collektive/commit/e4c19479d39cef0c19fc2d68275f6c807f5a6f45))
+
 ## [10.2.0](https://github.com/Collektive/collektive/compare/10.1.3...10.2.0) (2024-09-05)
 
 ### Features

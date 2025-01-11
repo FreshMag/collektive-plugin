@@ -1,8 +1,7 @@
-import org.danilopianini.gradle.mavencentral.DocStyle
-
 plugins {
     `java-gradle-plugin`
     alias(libs.plugins.build.config)
+    alias(libs.plugins.dokka)
     alias(libs.plugins.gitSemVer)
     alias(libs.plugins.gradlePluginPublish)
     alias(libs.plugins.kotlin.jvm)
@@ -40,8 +39,10 @@ buildConfig {
 }
 
 val pluginName = "collektive-plugin"
-val pluginDescription = "Gradle support for the Collektive Kotlin compiler plugin," +
-    " performing automatic aggregate alignment of Kotlin sources ."
+val pluginDescription =
+    """
+    Gradle support for the Collektive Kotlin compiler plugin performing automatic aggregate alignment of Kotlin sources
+    """
 
 // Defines a gradle plugin that can be used from other projects
 gradlePlugin {
@@ -64,7 +65,14 @@ tasks.generateBuildConfig.configure {
 
 ktlint {
     filter {
-        exclude { it.file.path.contains(layout.buildDirectory.dir("generated").get().toString()) }
+        exclude {
+            it.file.path.contains(
+                layout.buildDirectory
+                    .dir("generated")
+                    .get()
+                    .toString(),
+            )
+        }
     }
 }
 
@@ -83,13 +91,9 @@ publishOnCentral {
     licenseName = "Apache License 2.0"
     projectLongName = "Collektive kotlin compiler plugin"
     licenseUrl = "https://opensource.org/license/Apache-2.0/"
-    docStyle = DocStyle.HTML
     publishing {
         publications {
             withType<MavenPublication>().configureEach {
-                if ("OSSRH" !in name) {
-                    artifact(tasks.javadocJar)
-                }
                 scmConnection = "git:git@github.com:$githubSlug"
                 projectUrl = "https://github.com/$githubSlug"
                 pom {

@@ -23,9 +23,8 @@ import kotlin.reflect.jvm.kotlinFunction
 class RunCollektiveProgram<P : Position<P>>(
     node: Node<Any?>,
     val name: String,
-    val program: context(CollektiveDevice<P>) Aggregate<Int>.() -> Any?,
+    val program: Aggregate<Int>.(CollektiveDevice<P>) -> Any?,
 ) : AbstractAction<Any?>(node) {
-
     private val programIdentifier = SimpleMolecule(name)
 
     /**
@@ -40,9 +39,10 @@ class RunCollektiveProgram<P : Position<P>>(
 
     init {
         declareDependencyTo(programIdentifier)
-        collektiveProgram = Collektive(localDevice.id, network = localDevice) {
-            program(localDevice, this)
-        }
+        collektiveProgram =
+            Collektive(localDevice.id, network = localDevice) {
+                program(localDevice)
+            }
     }
 
     /**
@@ -51,7 +51,7 @@ class RunCollektiveProgram<P : Position<P>>(
     constructor(
         node: Node<Any?>,
         entrypoint: String,
-    ) : this(node, entrypoint, findEntrypoint(entrypoint, node.asProperty()))
+    ) : this(node, entrypoint, findEntrypoint(entrypoint))
 
     /**
      * Create a [RunCollektiveProgram] with a specific [entrypoint] and a [node].
@@ -61,10 +61,12 @@ class RunCollektiveProgram<P : Position<P>>(
         node: Node<Any?>,
         entrypoint: Method,
         name: String = entrypoint.name,
-    ) : this(node, name, buildEntryPoint(entrypoint, node.asProperty()))
+    ) : this(node, name, buildEntryPoint(entrypoint))
 
-    override fun cloneAction(node: Node<Any?>, reaction: Reaction<Any?>): Action<Any?> =
-        RunCollektiveProgram(node, name)
+    override fun cloneAction(
+        node: Node<Any?>,
+        reaction: Reaction<Any?>,
+    ): Action<Any?> = RunCollektiveProgram(node, name)
 
     override fun execute() {
         collektiveProgram.cycle().also {
@@ -74,40 +76,42 @@ class RunCollektiveProgram<P : Position<P>>(
 
     override fun getContext(): Context = Context.NEIGHBORHOOD
 
-    companion object {
-
+    private companion object {
         private fun <P : Position<P>> findEntrypoint(
             entrypoint: String,
-            localDevice: CollektiveDevice<P>,
-        ): context(CollektiveDevice<P>) Aggregate<Int>.() -> Any? {
+        ): Aggregate<Int>.(CollektiveDevice<P>) -> Any? {
             val className = entrypoint.substringBeforeLast(".")
             val methodName = entrypoint.substringAfterLast(".")
             val clazz = Class.forName(className)
-            val method = clazz.methods.find { it.name == methodName }
-                ?: error("Entrypoint $entrypoint not found, no method $methodName found in class $className")
-            return buildEntryPoint(method, localDevice)
+            val method =
+                clazz.methods.find { it.name == methodName }
+                    ?: error("Entrypoint $entrypoint not found, no method $methodName found in class $className")
+            return buildEntryPoint(method)
         }
 
-        private fun <P : Position<P>> buildEntryPoint(
-            method: Method,
-            localDevice: CollektiveDevice<P>,
-        ): context(CollektiveDevice<P>) Aggregate<Int>.() -> Any? {
-            val ktfunction = checkNotNull(method.kotlinFunction) {
-                "Method ${method.name} in class ${method.declaringClass.name} cannot be converted to a Kotlin function"
-            }
-            return {
-                val parameters = method.parameters.map {
-                    when {
-                        it.type.isAssignableFrom(Aggregate::class.java) -> this
-                        it.type.isAssignableFrom(CollektiveDevice::class.java) -> localDevice
-                        it.type.isAssignableFrom(Node::class.java) -> localDevice.node
-                        node.hasPropertyCompatibleWith(it) -> node.getPropertyCompatibleWith(it)
-                        else -> error("Unsupported type ${it.type} in entrypoint ${ktfunction.name}")
-                    }
-                }.toTypedArray()
-                ktfunction.call(*parameters)
+        private fun <P : Position<P>> buildEntryPoint(method: Method): Aggregate<Int>.(CollektiveDevice<P>) -> Any? {
+            val ktFunction =
+                checkNotNull(method.kotlinFunction) {
+                    "Method ${method.name} in class ${method.declaringClass.name}" +
+                        " cannot be converted to a Kotlin function"
+                }
+            // Build the lambda function to be executed
+            return { device: CollektiveDevice<P> ->
+                val parameters =
+                    method.parameters
+                        .map {
+                            when {
+                                it.type.isAssignableFrom(Aggregate::class.java) -> this
+                                it.type.isAssignableFrom(CollektiveDevice::class.java) -> device
+                                it.type.isAssignableFrom(Node::class.java) -> device.node
+                                device.node.hasPropertyCompatibleWith(it) -> device.node.getPropertyCompatibleWith(it)
+                                else -> error("Unsupported type ${it.type} in entrypoint ${ktFunction.name}")
+                            }
+                        }.toTypedArray()
+                ktFunction.call(*parameters)
             }
         }
+
         private fun Node<*>.hasPropertyCompatibleWith(parameter: Parameter): Boolean =
             properties.any { parameter.type.isAssignableFrom(it::class.java) }
 

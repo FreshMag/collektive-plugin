@@ -1,6 +1,6 @@
 plugins {
     `kotlin-dsl`
-    id("org.danilopianini.multi-jvm-test-plugin") version "1.2.6"
+    id("org.danilopianini.multi-jvm-test-plugin") version "3.1.2"
 }
 
 repositories {
@@ -13,7 +13,6 @@ with(extensions.getByType<VersionCatalogsExtension>().named("libs")) {
         implementation(kotlin("reflect"))
         implementation(findLibrary("kotlin-gradle-plugin").get())
         implementation(findLibrary("kotlinpoet").get())
-        implementation(findLibrary("arrow").get())
     }
 }
 

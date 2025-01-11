@@ -1,7 +1,6 @@
 package it.unibo.collektive.utils.common
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.backend.jvm.ir.receiverAndArgs
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.backend.js.utils.typeArguments
 import org.jetbrains.kotlin.ir.builders.IrBlockBodyBuilder
@@ -14,19 +13,22 @@ import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.classifierOrNull
 import org.jetbrains.kotlin.ir.util.kotlinFqName
+import org.jetbrains.kotlin.ir.util.receiverAndArgs
 
-internal fun IrType.isAssignableFrom(other: IrType): Boolean = classifierOrNull?.let { base ->
-    other.classifierOrNull?.let { other ->
-        FqNameEqualityChecker.areEqual(base, other)
+internal fun IrType.isAssignableFrom(other: IrType): Boolean =
+    classifierOrNull?.let { base ->
+        other.classifierOrNull?.let { other ->
+            FqNameEqualityChecker.areEqual(base, other)
+        } ?: false
     } ?: false
-} ?: false
 
 internal fun List<IrType?>.stringified(
     prefix: String = "(",
     postfix: String = ")",
-): String = joinToString(",", prefix = prefix, postfix = postfix) {
-    it?.classFqName?.asString() ?: "?"
-}
+): String =
+    joinToString(",", prefix = prefix, postfix = postfix) {
+        it?.classFqName?.asString() ?: "?"
+    }
 
 @OptIn(UnsafeDuringIrConstructionAPI::class)
 internal fun IrCall.getAlignmentToken(): String {
@@ -47,9 +49,10 @@ internal fun <T : IrElement> irStatement(
     functionToAlign: IrFunction,
     expression: IrElement,
     body: IrBlockBodyBuilder.() -> T,
-): T = IrBlockBodyBuilder(
-    pluginContext,
-    Scope(functionToAlign.symbol),
-    expression.startOffset,
-    expression.endOffset,
-).body()
+): T =
+    IrBlockBodyBuilder(
+        pluginContext,
+        Scope(functionToAlign.symbol),
+        expression.startOffset,
+        expression.endOffset,
+    ).body()

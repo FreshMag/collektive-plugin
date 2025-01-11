@@ -54,36 +54,43 @@ inline fun <ID : Any, T> Field<ID, T>.anyWithSelf(crossinline predicate: (T) -> 
  * Returns the element yielding the largest value of the given [comparator].
  * In case multiple elements are maximal, there is no guarantee which one will be returned.
  */
-fun <ID : Any, T> Field<ID, T>.maxWith(base: T, comparator: Comparator<T>): T =
-    minWith(base, comparator.reversed())
+fun <ID : Any, T> Field<ID, T>.maxWith(
+    base: T,
+    comparator: Comparator<T>,
+): T = minWith(base, comparator.reversed())
 
 /**
  * Returns the element yielding the largest value of the given [selector].
  * In case multiple elements are maximal, there is no guarantee which one will be returned.
  */
-inline fun <ID : Any, T, R : Comparable<R>> Field<ID, T>.maxBy(base: T, crossinline selector: (T) -> R): T =
-    maxWith(base, compareBy(selector))
+inline fun <ID : Any, T, R : Comparable<R>> Field<ID, T>.maxBy(
+    base: T,
+    crossinline selector: (T) -> R,
+): T = maxWith(base, compareBy(selector))
 
 /**
  * Returns the element yielding the smallest value of the given [comparator].
  * In case multiple elements are minimal, there is no guarantee which one will be returned.
  */
-fun <ID : Any, T> Field<ID, T>.minWith(base: T, comparator: Comparator<T>): T =
-    fold(base) { acc, value -> if (comparator.compare(acc, value) < 0) acc else value }
+fun <ID : Any, T> Field<ID, T>.minWith(
+    base: T,
+    comparator: Comparator<T>,
+): T = fold(base) { acc, value -> if (comparator.compare(acc, value) < 0) acc else value }
 
 /**
  * Returns the element yielding the smallest value of the given [selector].
  * In case multiple elements are minimal, there is no guarantee which one will be returned.
  */
-inline fun <ID : Any, T, R : Comparable<R>> Field<ID, T>.minBy(base: T, crossinline selector: (T) -> R): T =
-    minWith(base, compareBy(selector))
+inline fun <ID : Any, T, R : Comparable<R>> Field<ID, T>.minBy(
+    base: T,
+    crossinline selector: (T) -> R,
+): T = minWith(base, compareBy(selector))
 
 /**
  * Check if none of the elements in the field satisfy the [predicate],
  * ignoring the local value.
  */
-inline fun <ID : Any, T> Field<ID, T>.none(crossinline predicate: (T) -> Boolean): Boolean =
-    !any(predicate)
+inline fun <ID : Any, T> Field<ID, T>.none(crossinline predicate: (T) -> Boolean): Boolean = !any(predicate)
 
 /**
  * Check if none of the elements in the field satisfy the [predicate],
@@ -91,3 +98,19 @@ inline fun <ID : Any, T> Field<ID, T>.none(crossinline predicate: (T) -> Boolean
  */
 inline fun <ID : Any, T> Field<ID, T>.noneWithSelf(crossinline predicate: (T) -> Boolean): Boolean =
     !anyWithSelf(predicate)
+
+/**
+ * Returns a new field containing [replaceWith] for each element that satisfies the [predicate].
+ */
+inline fun <ID : Any, T> Field<ID, T>.replaceMatchingWithId(
+    replaceWith: T,
+    crossinline predicate: (ID, T) -> Boolean,
+): Field<ID, T> = mapWithId { id, value -> if (predicate(id, value)) replaceWith else value }
+
+/**
+ * Returns a new field containing [replaceWith] for each element that satisfies the [predicate].
+ */
+inline fun <ID : Any, T> Field<ID, T>.replaceMatching(
+    replaceWith: T,
+    crossinline predicate: (T) -> Boolean,
+): Field<ID, T> = replaceMatchingWithId(replaceWith) { _, value -> predicate(value) }

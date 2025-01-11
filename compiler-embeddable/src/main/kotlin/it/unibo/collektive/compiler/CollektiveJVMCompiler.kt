@@ -3,7 +3,6 @@ package it.unibo.collektive.compiler
 import it.unibo.collektive.AlignmentCommandLineProcessor
 import it.unibo.collektive.AlignmentComponentRegistrar
 import it.unibo.collektive.compiler.logging.SLF4JMessageCollector
-import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.arguments.K2JVMCompilerArguments
 import org.jetbrains.kotlin.cli.common.config.addKotlinSourceRoot
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
@@ -30,15 +29,20 @@ import kotlin.script.experimental.jvm.util.classpathFromClassloader
  * A facade for the Kotlin-JVM compiler with the Collektive plugin.
  */
 @OptIn(ExperimentalCompilerApi::class)
+@Deprecated(
+    "This facade is deprecated since it does not execute the Collektive frontend compiler plugin," +
+        " and uses unstable compiler APIs",
+    ReplaceWith("CollektiveK2JVMCompiler.compile"),
+)
 object CollektiveJVMCompiler {
-
     private fun tempDir(module: String) = createTempDirectory(module).toFile()
-    private const val firstJavaVersionWithModuleSystem = 9
+
+    private const val FIRST_JAVA_VERSION_WITH_MODULE_SYSTEM = 9
 
     private val defaultJvmTarget =
         System.getProperty("java.version").substringBefore('.').toInt().let { version ->
             when {
-                version < firstJavaVersionWithModuleSystem -> JvmTarget.JVM_1_8
+                version < FIRST_JAVA_VERSION_WITH_MODULE_SYSTEM -> JvmTarget.JVM_1_8
                 else -> JvmTarget.fromString(version.toString()) ?: JvmTarget.DEFAULT
             }
         }
@@ -67,7 +71,7 @@ object CollektiveJVMCompiler {
             }
         }
         // CLI compiler configuration
-        configuration.put(CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY, messageCollector)
+        configuration.put(CommonConfigurationKeys.MESSAGE_COLLECTOR_KEY, messageCollector)
         // Common Kotlin configuration
         configuration.put(CommonConfigurationKeys.MODULE_NAME, moduleName)
         // Kotlin-JVM specific configuration
@@ -83,10 +87,11 @@ object CollektiveJVMCompiler {
         // Enable the IR backend, or the Collektive plugin cannot be applied
         configuration.put(JVMConfigurationKeys.IR, true)
         // Classpath configuration
-        val classpath = checkNotNull(classpathFromClassloader(Thread.currentThread().contextClassLoader)) {
-            "Empty classpath from current classloader." +
-                "Likely a bug in alchemist-incarnation-collective's Kotlin compiler facade"
-        }
+        val classpath =
+            checkNotNull(classpathFromClassloader(Thread.currentThread().contextClassLoader)) {
+                "Empty classpath from current classloader." +
+                    "Likely a bug in alchemist-incarnation-collective's Kotlin compiler facade"
+            }
         configuration.addJvmClasspathRoots(classpath)
         configuration.addJvmClasspathRoots(KotlinJars.compilerClasspath)
         configuration.addJvmClasspathRoot(KotlinJars.stdlib)
@@ -95,11 +100,12 @@ object CollektiveJVMCompiler {
         configuration.add(CompilerPluginRegistrar.COMPILER_PLUGIN_REGISTRARS, AlignmentComponentRegistrar())
         // Configure the Collektive plugin options available in the command line processor
         configuration.put(AlignmentCommandLineProcessor.ARG_ENABLED, true)
-        val environment = KotlinCoreEnvironment.createForProduction(
-            { },
-            configuration,
-            EnvironmentConfigFiles.JVM_CONFIG_FILES,
-        )
+        val environment =
+            KotlinCoreEnvironment.createForProduction(
+                { },
+                configuration,
+                EnvironmentConfigFiles.JVM_CONFIG_FILES,
+            )
         return KotlinToJVMBytecodeCompiler.analyzeAndGenerate(environment)
     }
 
@@ -116,14 +122,15 @@ object CollektiveJVMCompiler {
         outputFolder: File = tempDir(moduleName),
         enableContextReceivers: Boolean = true,
         messageCollector: MessageCollector = SLF4JMessageCollector.default,
-    ): GenerationState? = compile(
-        listOf(inputFile),
-        jvmTarget,
-        moduleName,
-        outputFolder,
-        enableContextReceivers,
-        messageCollector,
-    )
+    ): GenerationState? =
+        compile(
+            listOf(inputFile),
+            jvmTarget,
+            moduleName,
+            outputFolder,
+            enableContextReceivers,
+            messageCollector,
+        )
 
     /**
      * Compiles the [input] string as a Kotlin-JVM file using the Collektive plugin.
